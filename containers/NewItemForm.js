@@ -8,14 +8,14 @@ async function fetchItems(setItems) {
   const jsonResponse = await response.json();
   const items = jsonResponse.items;
   setItems(items);
-  console.log(items);
+  
 }
 
 async function formSubmitHandler(items, setItemNameSmallTag) {
-  alert(itemName+expiryTime)
+ 
 
   var index = items.findIndex((item) => item.name == itemName)
-  console.log(items);
+  
   if(index != -1)
   {
     setItemNameSmallTag(true)
@@ -37,7 +37,7 @@ async function formSubmitHandler(items, setItemNameSmallTag) {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(requestbody)
   
-     // body: JSON.stringify(requestbody)
+     
     });
     const jsonResponse = await response.json();
     //console.log('jsonResponse *********************************************** ')
@@ -77,12 +77,13 @@ const NewItemForm = () => {
           <label htmlFor="formExpiresAfterSeconds">Expires after</label>
           <div className="input-group">
             <input
-              type="text"
+              type="text" 
+              maxLength="3"
               className="form-control"
               id="formExpiresAfterSeconds"
               aria-label="Expires in"
               aria-describedby="basic-addon2"
-              onChange={(event) => (expiryTime = event.target.value)}
+             onChange={(event) => (expiryTime = event.target.value)}
             />
             <div className="input-group-append">
               <span className="input-group-text" id="basic-addon2">
@@ -93,7 +94,7 @@ const NewItemForm = () => {
         </div>
       </div>
       <button
-        type="button"
+        type="submit"
         className="btn btn-primary"
         onClick={e =>formSubmitHandler(items, setItemNameSmallTag)}
       >

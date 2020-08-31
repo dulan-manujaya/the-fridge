@@ -8,6 +8,27 @@ async function fetchItems(setItems) {
   setItems(items);
 }
 
+function createCountDown(elementId, seconds) {
+  
+	var x = setInterval(function() {
+    let items = items.filter((item) => item.id == elementId).map(item => (
+      
+    //  return(
+    //   Math.max(
+    //     differenceInSeconds(new Date(item.expiresIn), now),0)
+    //  )
+    //     expirySeconds :
+    console.log(elementId) 
+      
+    ))
+	  document.getElementById(elementId).innerHTML = seconds ;
+	  if (seconds <=  0) {
+		clearInterval(x);
+		document.getElementById(elementId).innerHTML = "ORDER EXPIRED";
+	  }
+	}, 1000);
+}
+
 const ListItems = () => {
   const [items, setItems] = React.useState([]);
   const now = new Date();
@@ -16,7 +37,6 @@ const ListItems = () => {
     fetchItems(setItems);
   }, []);
 
-  
 
   return (
     <div
@@ -38,12 +58,11 @@ const ListItems = () => {
                 <div className="col-6">{item.name}</div>
                 <div className="col-4 text-right">
                   expires in{" "}
-                  <span className="badge badge-secondary">
-                    {Math.max(
-                      differenceInSeconds(new Date(item.expiresIn), now),
-                      0
-                    )}{" "}
+                  <span className="badge badge-secondary" id={item.id}>
+                  {createCountDown(item.id)}
+                    {" "}
                     s
+
                   </span>
                 </div>
               </div>
@@ -51,6 +70,7 @@ const ListItems = () => {
           </li>
         ))}
       </ul>
+      <span id = "countdown"> {createCountDown("countdown", 999)}</span>
     </div>
   );
 };
